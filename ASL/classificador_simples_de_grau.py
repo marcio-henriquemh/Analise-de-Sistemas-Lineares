@@ -1,30 +1,40 @@
 
 import math
 import numpy as np
-import matplotlib.pyplot as plt
 
+
+
+x_entrada = []
+pesos_rede = []
 
 def funcao_degrau(z):
-  return 1 if z >= 0 else 0
+    if z < 0:
+        return 0
+    else:
+        return 1
 
+def neuronio():
+    # Entradas e pesos
+    for i in range(3):
+        entrada = float(input(f"Informe o valor da entrada {i+1}: "))
+        peso = float(input(f"Informe o valor do peso {i+1}: "))
+        x_entrada.append(entrada)
+        pesos_rede.append(peso)
+    
+    # Bias
+    bias = float(input("Informe o valor do bias: "))
 
-# Dados de exemplo (1 característica)
-X = np.array([0.5, 0.4, 0.6, 0.3, 5.0])
-# Classes esperadas
-Y = np.array([0, 0, 1, 1, 1])
+    # Produto escalar 
+    soma = np.dot(x_entrada, pesos_rede) + bias
 
+    # Aplicar a função degrau
+    saida = funcao_degrau(soma)
 
-w = 1.0
-b = -0.5  # ajusta o limiar para o degrau
+    print("\n--- Resultados ---")
+    print(f"Entradas: {x_entrada}")
+    print(f"Pesos: {pesos_rede}")
+    print(f"Soma (x·w + b): {soma}")
+    print(f"Saída do neurônio (função degrau): {saida}")
 
-
-# Classificação
-Y_pred = []
-for x in X:
-    z = w * x + b
-    y_hat = funcao_degrau(z)
-    Y_pred.append(y_hat)
-
-print("Entrada X:", X)
-print("Classe prevista:", Y_pred)
-print("Classe real   :", Y)
+# Executar
+neuronio()
